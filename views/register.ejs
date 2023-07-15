@@ -10,12 +10,16 @@
           <!-- Makes POST request to /register route -->
           <form action="/register" method="POST">
             <div class="form-group">
+              <label for="nickname">What Should We Call You</label>
+              <input type="nickname" class="form-control" name="nickname" required>
+            </div>
+            <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" class="form-control" name="username">
+              <input type="email" class="form-control" name="username" required>
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control" name="password">
+              <input type="password" class="form-control" name="password" required>
             </div>
             <button type="submit" class="btn btn-dark">Register</button>
           </form>

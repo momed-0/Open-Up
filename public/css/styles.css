@@ -93,10 +93,17 @@ hr {
   border-radius: 4px;
 }
 
+
 .post h2 {
   font-size: 1.8rem;
   color: #333333;
   margin-bottom: 0.5rem;
+}
+
+.post h6 {
+  font-size: 0.8rem;
+  color: #808080;
+  margin-bottom: 1rem;
 }
 .post p {
   font-size: 1.2rem;

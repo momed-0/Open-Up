@@ -36,6 +36,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/openDB");
 
 //Email-Password Schema
 const userSchema =new mongoose.Schema({
+    nickname: String,
     username: String,
     password: String
 });
@@ -43,6 +44,7 @@ userSchema.plugin(passportLocalMongoose);
 
 //Blog Post Schema TODO
 const postSchema = new mongoose.Schema( {
+    nickname:String,
     title: String,
     body: String
 });
@@ -75,7 +77,8 @@ app.get("/secrets",function(req,res) {
         Post.find({})
             .then(function(foundPosts) {
                 res.render("secrets" , {
-                    posts : foundPosts
+                    posts : foundPosts,
+                    nickname:req.user.nickname
                 });
                 })
             .catch(function(err) {
@@ -94,21 +97,23 @@ app.get("/login",function(req,res) {
     res.render("login");
 });
 
-app.post("/login",function(req,res) {
-    const user = new User({
-        username: req.body.username,
-        password:req.body.password
-       });
-       req.login(user,function(err) {
-            if(err) {
-                console.log(err);
-            } else {
-                passport.authenticate("local")(req,res,function(){
-                    res.redirect("/secrets");
-                })
-            }
-       });
-});
+app.post("/login", function(req, res) {
+    const { username, password } = req.body;
+  
+    const user = new User({ username, password });
+  
+    req.login(user, function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        passport.authenticate("local")(req, res, function() {
+          res.redirect("/secrets");
+        });
+      }
+    });
+  });
+  
+  
 //----------------------------------Log Out Route----------------------------------------------------
 app.get("/logout",function(req,res) {
     req.logout(function(err) {
@@ -124,18 +129,22 @@ app.get("/register",function(req,res) {
     res.render("register");
 });
 
-app.post("/register",function(req,res) {
-    User.register({username: req.body.username},req.body.password,function(err,user) {
-        if(err) {
-            console.log(err);
-            res.redirect("/register");
-        } else {
-            passport.authenticate("local")(req,res,function(){
-                res.redirect("/secrets");
-            })
-        }
+app.post("/register", function(req, res) {
+    const { username, password, nickname } = req.body;
+  
+    User.register({ username, nickname }, password, function(err, user) {
+      if (err) {
+        console.log(err);
+        res.redirect("/register");
+      } else {
+        passport.authenticate("local")(req, res, function() {
+          res.redirect("/secrets");
+        });
+      }
     });
-});
+  });
+  
+
 
 
 //----------------------------------------Compose Route---------------------------------------------------------
@@ -153,6 +162,7 @@ app.get("/compose",function(req,res) {
   app.post('/compose',function(req, res) {
     //Create new post
     const post = new Post ({
+        nickname:req.user.nickname,
         title:req.body.postTitle,
         body: req.body.postContent
     });
