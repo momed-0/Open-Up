@@ -32,7 +32,7 @@ app.use(passport.session());
 //--------------------------Set Up The Database------------------------------------------------------
 
 //Database for the Authentication System
-mongoose.connect("mongodb://127.0.0.1:27017/userDB");
+mongoose.connect("mongodb://127.0.0.1:27017/openDB");
 
 //Email-Password Schema
 const userSchema =new mongoose.Schema({
