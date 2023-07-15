@@ -39,13 +39,6 @@ body {
   font-weight: bold;
   margin-bottom: 2rem;
 }
-
-.secret-text {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  color: #808080;
-}
-
 hr {
   border: none;
   border-top: 1px solid #dee2e6;
@@ -137,9 +130,16 @@ button.btn {
     text-align: center;
 }
 
-.secret-text {
+
+.footer {
   text-align: center;
-  font-size: 2rem;
-  color: #fff;
-  background-color: #000;
+  background-color: #f8f9fa;
+  padding: 1rem 0;
 }
+
+.footer p {
+  font-size: 0.8rem;
+  color: #808080;
+  margin-bottom: 0;
+}
+

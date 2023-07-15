@@ -26,7 +26,7 @@ app.use(session({
   }));
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session());//for storing the user session
 
 
 //--------------------------Set Up The Database------------------------------------------------------
